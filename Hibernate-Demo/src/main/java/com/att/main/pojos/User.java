@@ -3,6 +3,7 @@ package com.att.main.pojos;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -45,7 +46,7 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(style = "DD-MON-YYYY")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="DD-MON-YYYY")
-	@Column(name="LAST_UPDATED")
+	@Column(name="LAST_UPDATED_DATE")
 	private Date lastUpdated;
 	
 	@Column(name="CREATED_BY")
@@ -57,21 +58,9 @@ public class User {
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Column(name="USER_ADDRESS_LINE_1")
-	private String userAddressLineOne;
-	
-	@Column(name="USER_ADDRESS_LINE_2")
-	private String userAddressLineTwo;
-	
-	@Column(name="CITY")
-	private String city;
-	
-	@Column(name="STATE")
-	private String state;
-	
-	@Column(name="ZIP_CODE")
-	private String zipcode;
-	
+	@Embedded
+	private UserAddress userAddress = new UserAddress();
+
 	public Long getuserId() {
 		return userId;
 	}
@@ -127,34 +116,34 @@ public class User {
 		this.createdDate = createdDate;
 	}
 	public String getUserAddressLineOne() {
-		return userAddressLineOne;
+		return userAddress.userAddressLineOne;
 	}
 	public void setUserAddressLineOne(String userAddressLineOne) {
-		this.userAddressLineOne = userAddressLineOne;
+		this.userAddress.userAddressLineOne = userAddressLineOne;
 	}
 	public String getUserAddressLineTwo() {
-		return userAddressLineTwo;
+		return userAddress.userAddressLineTwo;
 	}
 	public void setUserAddressLineTwo(String userAddressLineTwo) {
-		this.userAddressLineTwo = userAddressLineTwo;
+		this.userAddress.userAddressLineTwo = userAddressLineTwo;
 	}
 	public String getCity() {
-		return city;
+		return userAddress.city;
 	}
 	public void setCity(String city) {
-		this.city = city;
+		this.userAddress.city = city;
 	}
 	public String getState() {
-		return state;
+		return userAddress.state;
 	}
 	public void setState(String state) {
-		this.state = state;
+		this.userAddress.state = state;
 	}
 	public String getZipcode() {
-		return zipcode;
+		return userAddress.zipcode;
 	}
 	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
+		this.userAddress.zipcode = zipcode;
 	}
 	
 }

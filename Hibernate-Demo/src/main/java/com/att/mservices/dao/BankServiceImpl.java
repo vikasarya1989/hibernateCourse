@@ -30,6 +30,7 @@ public class BankServiceImpl implements IBankDao{
 	public void adduser(User user) {
 		entityManager.persist(user);
 	}
+	
 
 	@Override
 	public void addSampleuser(Sampleuser user) {
@@ -38,6 +39,11 @@ public class BankServiceImpl implements IBankDao{
 		System.out.println("Created Date : " + user.getCreatedDate());
 		entityManager.persist(user);
 		
+	}
+
+	@Override
+	public void addBank(Bank bank) {
+		entityManager.persist(bank);
 	}
 
 }

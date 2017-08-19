@@ -1,13 +1,18 @@
 package com.att.main.pojos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +37,18 @@ public class Bank implements Serializable {
 		
 		@Column(name="CITY")
 		private String city;
+		
+		@ElementCollection
+		@CollectionTable(name="BANK_CONTACT", joinColumns=@JoinColumn(name="BANK_ID"))
+		@Column(name="NAME")
+		private List<String> contactsList = new ArrayList<String>();
+		
+		public List<String> getContactsList() {
+			return contactsList;
+		}
+		public void setContactsList(List<String> contactsList) {
+			this.contactsList = contactsList;
+		}
 		public Long getBankId() {
 			return bankId;
 		}

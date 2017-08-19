@@ -13,4 +13,6 @@ public interface IBankDao {
 	public void adduser(User user);
 	
 	public void addSampleuser(Sampleuser user);
+	
+	public void addBank(Bank bank);
 }
