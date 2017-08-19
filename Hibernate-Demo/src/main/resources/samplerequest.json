@@ -1,0 +1,16 @@
+{
+	"userId" : 1,
+	"firstName" : "Lincoln",
+	"lastName" : "Burrows",
+	"birthDate" : "20-NOV-2017",
+	"emailId" : "vamsi.gpv@gmail.com",
+	"lastUpdatedBy" : "vamsi",
+	"lastUpdated" : "20-NOV-2017",
+	"createdBy" : "vamsi",
+	"createdDate" : "20-NOV-2017",
+	"userAddressLine1" : "2017 EastGenesse st",
+	"userAddressLine2" : "Apartment D",
+	"city" : "Syracuse",
+	"state" : "NY",
+	"zipcode" : "13210"
+}
