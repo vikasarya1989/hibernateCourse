@@ -615,3 +615,11 @@ SET character_set_client = @saved_cs_client;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2014-12-14 10:04:31
+
+
+
+create table SampleUser (
+	userId int,
+    userName varchar(20),
+    createdDate date
+)

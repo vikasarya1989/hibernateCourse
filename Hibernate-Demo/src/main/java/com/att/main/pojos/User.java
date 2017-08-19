@@ -8,13 +8,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.couchbase.client.deps.com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name="FINANCES_USER")
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="USER_ID")
 	private Long userId;
 	
@@ -24,6 +30,9 @@ public class User {
 	@Column(name="LAST_NAME")
 	private String lastName;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(style = "DD-MON-YYYY")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="DD-MON-YYYY")
 	@Column(name="BIRTH_DATE")
 	private Date birthDate;
 	
@@ -33,12 +42,18 @@ public class User {
 	@Column(name="LAST_UPDATED_BY")
 	private String lastUpdatedBy;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(style = "DD-MON-YYYY")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="DD-MON-YYYY")
 	@Column(name="LAST_UPDATED")
 	private Date lastUpdated;
 	
 	@Column(name="CREATED_BY")
 	private String createdBy;
 	
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(style = "DD-MON-YYYY")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="DD-MON-YYYY")
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
