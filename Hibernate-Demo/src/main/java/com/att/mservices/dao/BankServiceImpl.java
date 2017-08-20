@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
@@ -64,6 +65,11 @@ public class BankServiceImpl implements IBankDao{
 	@Override
 	public void addCredentialForUser(Credential credential) {
 		entityManager.persist(credential);
+	}
+
+	@Override
+	public void addAccountAndTxsObj(Account account) {
+		entityManager.persist(account);
 	}
 
 }

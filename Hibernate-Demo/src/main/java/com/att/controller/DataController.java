@@ -1,5 +1,6 @@
 package com.att.controller;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,13 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
 import com.att.main.pojos.UserAddress;
+import com.att.main.pojos.Transaction;
 import com.att.mservices.dao.IBankDao;
-import com.couchbase.client.deps.com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Controller
 public class DataController {
@@ -56,6 +58,18 @@ public class DataController {
 	public void shoeUser(@RequestBody Sampleuser user) {
 		bankDaoService.addSampleuser(user);
 		
+	}
+	
+	@RequestMapping(value="/addAccountAndTxsObj")
+	@ResponseBody
+	public String addAccountAndTxsObj() {
+		Account account = getAccountFieldData();
+		Transaction beltPurchase = getbeltPurchaseTx();
+		Transaction shoePurchase = getshoePurchaseTx();
+		account.getTransactions().add(beltPurchase);
+		account.getTransactions().add(shoePurchase);
+		bankDaoService.addAccountAndTxsObj(account);
+		return "addAccountAndTxsObj";
 	}
 	
 	@RequestMapping(value="/addCredentialForUser")
@@ -145,5 +159,49 @@ public class DataController {
 		address2.setCity("Syracuse");
 		address2.setState("NY");
 		address2.setZipcode("13210");
+	}
+	
+	public Account getAccountFieldData() {
+		Account account = new Account();
+		account.setInitialBalance(new BigDecimal("1000.00"));
+		account.setCurrentBalance(new BigDecimal("991.00"));
+		account.setCreatedBy("Peterson");
+		account.setCreatedDate(new Date());
+		account.setLastupdatedBy("Peterson");
+		account.setLasUpdatedDate(new Date());
+		account.setOpenDate(new Date());
+		account.setCloseDate(new Date());
+		account.setName("Savings Account");
+		return account;
+	}
+	
+	public Transaction getbeltPurchaseTx() {
+		Transaction beltPurchase = new Transaction();
+		beltPurchase.setTitle("Dress Belt");
+		beltPurchase.setAmount(new BigDecimal("50.00"));
+		beltPurchase.setClosingBalance(new BigDecimal("0.00"));
+		beltPurchase.setInitialBalance(new BigDecimal("0.00"));
+		beltPurchase.setCreatedBy("Kevin");
+		beltPurchase.setCreatedDate(new Date());
+		beltPurchase.setLastUpdatedby("Kevin");
+		beltPurchase.setLastUpdatedDate(new Date());
+		beltPurchase.setNotes("Purchased Dress Belt");
+		beltPurchase.setTransactionType("Debit");
+		return beltPurchase;
+	}
+	
+	public Transaction getshoePurchaseTx() {
+		Transaction shoePurchase = new Transaction();
+		shoePurchase.setTitle("Dress Shoes");
+		shoePurchase.setAmount(new BigDecimal("10.00"));
+		shoePurchase.setClosingBalance(new BigDecimal("20.00"));
+		shoePurchase.setInitialBalance(new BigDecimal("40.00"));
+		shoePurchase.setCreatedBy("Kevin");
+		shoePurchase.setCreatedDate(new Date());
+		shoePurchase.setLastUpdatedby("Kevin");
+		shoePurchase.setLastUpdatedDate(new Date());
+		shoePurchase.setNotes("Purchased Dress Belt");
+		shoePurchase.setTransactionType("Credit");
+		return shoePurchase;
 	}
 }

@@ -3,6 +3,7 @@ package com.att.mservices.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
@@ -24,4 +25,6 @@ public interface IBankDao {
 	public void addUserAddressObj(UserAddress userAddress);
 	
 	public void addCredentialForUser(Credential credential);
+	
+	public void addAccountAndTxsObj(Account account);
 }
