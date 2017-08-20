@@ -1,13 +1,18 @@
 package com.att.main.pojos;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -58,9 +63,16 @@ public class User {
 	@Column(name="CREATED_DATE")
 	private Date createdDate;
 	
-	@Embedded
-	private UserAddress userAddress = new UserAddress();
+	@ElementCollection
+	@CollectionTable(name="USER_ADDRESS", joinColumns=@JoinColumn(name="USER_ID"))
+	private List<UserAddress> userAddress = new ArrayList<UserAddress>();
 
+	public List<UserAddress> getUserAddress() {
+		return userAddress;
+	}
+	public void setUserAddress(List<UserAddress> userAddress) {
+		this.userAddress = userAddress;
+	}
 	public Long getuserId() {
 		return userId;
 	}
@@ -115,35 +127,6 @@ public class User {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public String getUserAddressLineOne() {
-		return userAddress.userAddressLineOne;
-	}
-	public void setUserAddressLineOne(String userAddressLineOne) {
-		this.userAddress.userAddressLineOne = userAddressLineOne;
-	}
-	public String getUserAddressLineTwo() {
-		return userAddress.userAddressLineTwo;
-	}
-	public void setUserAddressLineTwo(String userAddressLineTwo) {
-		this.userAddress.userAddressLineTwo = userAddressLineTwo;
-	}
-	public String getCity() {
-		return userAddress.city;
-	}
-	public void setCity(String city) {
-		this.userAddress.city = city;
-	}
-	public String getState() {
-		return userAddress.state;
-	}
-	public void setState(String state) {
-		this.userAddress.state = state;
-	}
-	public String getZipcode() {
-		return userAddress.zipcode;
-	}
-	public void setZipcode(String zipcode) {
-		this.userAddress.zipcode = zipcode;
-	}
+
 	
 }

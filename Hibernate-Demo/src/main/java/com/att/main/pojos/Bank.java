@@ -3,7 +3,9 @@ package com.att.main.pojos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -40,13 +43,14 @@ public class Bank implements Serializable {
 		
 		@ElementCollection
 		@CollectionTable(name="BANK_CONTACT", joinColumns=@JoinColumn(name="BANK_ID"))
+		@MapKeyColumn(name="POSITION_TYPE")
 		@Column(name="NAME")
-		private List<String> contactsList = new ArrayList<String>();
+		private Map<String, String> contactsList = new HashMap<String, String>();
 		
-		public List<String> getContactsList() {
+		public Map<String, String> getContactsList() {
 			return contactsList;
 		}
-		public void setContactsList(List<String> contactsList) {
+		public void setContactsList(Map<String, String> contactsList) {
 			this.contactsList = contactsList;
 		}
 		public Long getBankId() {
