@@ -24,8 +24,7 @@ public class Account {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long accountId;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="ACCOUNT_ID", nullable=false)
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="account")
 	List<Transaction> transactions = new ArrayList<Transaction>();
 	
 	public List<Transaction> getTransactions() {

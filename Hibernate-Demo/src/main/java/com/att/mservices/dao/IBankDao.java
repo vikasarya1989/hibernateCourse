@@ -26,5 +26,7 @@ public interface IBankDao {
 	
 	public void addCredentialForUser(Credential credential);
 	
-	public void addAccountAndTxsObj(Account account);
+	public void addAccountAndTxsObj(Account account);//oneToManyUnidirectional
+	
+	public void addAccountTxObj(Account account);//oneToManyBidirectional
 }

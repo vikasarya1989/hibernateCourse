@@ -72,4 +72,9 @@ public class BankServiceImpl implements IBankDao{
 		entityManager.persist(account);
 	}
 
+	@Override
+	public void addAccountTxObj(Account account) {
+		entityManager.persist(account);
+	}
+
 }

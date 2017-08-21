@@ -60,6 +60,7 @@ public class DataController {
 		
 	}
 	
+	//OneToMany Unidirectional
 	@RequestMapping(value="/addAccountAndTxsObj")
 	@ResponseBody
 	public String addAccountAndTxsObj() {
@@ -70,6 +71,17 @@ public class DataController {
 		account.getTransactions().add(shoePurchase);
 		bankDaoService.addAccountAndTxsObj(account);
 		return "addAccountAndTxsObj";
+	}
+	
+	//OneToMany Bidirectional
+	@RequestMapping(value="/addAccountTxObj")
+	@ResponseBody
+	public String addAccountTxObj() {
+		Account account = getAccountFieldData();
+		account.getTransactions().add(getbeltPurchaseTx(account));
+		account.getTransactions().add(getshoePurchaseTx(account));
+		bankDaoService.addAccountTxObj(account);
+		return "addAccountTxObj";
 	}
 	
 	@RequestMapping(value="/addCredentialForUser")
@@ -201,6 +213,38 @@ public class DataController {
 		shoePurchase.setLastUpdatedby("Kevin");
 		shoePurchase.setLastUpdatedDate(new Date());
 		shoePurchase.setNotes("Purchased Dress Belt");
+		shoePurchase.setTransactionType("Credit");
+		return shoePurchase;
+	}
+	
+	public Transaction getbeltPurchaseTx(Account account) {
+		Transaction beltPurchase = new Transaction();
+		beltPurchase.setAccount(account);
+		beltPurchase.setTitle("Dress Belt");
+		beltPurchase.setAmount(new BigDecimal("50.00"));
+		beltPurchase.setClosingBalance(new BigDecimal("0.00"));
+		beltPurchase.setInitialBalance(new BigDecimal("0.00"));
+		beltPurchase.setCreatedBy("Kevin");
+		beltPurchase.setCreatedDate(new Date());
+		beltPurchase.setLastUpdatedby("Kevin");
+		beltPurchase.setLastUpdatedDate(new Date());
+		beltPurchase.setNotes("Many To One Bidirectional Belt Purchase");
+		beltPurchase.setTransactionType("Debit");
+		return beltPurchase;
+	}
+	
+	public Transaction getshoePurchaseTx(Account account) {
+		Transaction shoePurchase = new Transaction();
+		shoePurchase.setAccount(account);
+		shoePurchase.setTitle("Dress Shoes");
+		shoePurchase.setAmount(new BigDecimal("10.00"));
+		shoePurchase.setClosingBalance(new BigDecimal("20.00"));
+		shoePurchase.setInitialBalance(new BigDecimal("40.00"));
+		shoePurchase.setCreatedBy("Kevin");
+		shoePurchase.setCreatedDate(new Date());
+		shoePurchase.setLastUpdatedby("Kevin");
+		shoePurchase.setLastUpdatedDate(new Date());
+		shoePurchase.setNotes("Many To One Bidirectional Shoe Purchase");
 		shoePurchase.setTransactionType("Credit");
 		return shoePurchase;
 	}
