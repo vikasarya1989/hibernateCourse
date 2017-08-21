@@ -34,4 +34,6 @@ public interface IBankDao {
 	public void addbudgetTransactionObj(Budget budget);//@joinTable
 	
 	public void addAccountsAndUsers(List<Account> accountsToBeSaved);//ManyToMany From Account Entity
+	
+	public void addAccounsToUsers(List<User> usersToBeSaved); //ManyToMany From User Entity
 }

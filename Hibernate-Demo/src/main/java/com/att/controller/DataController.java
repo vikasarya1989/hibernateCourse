@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.att.hibernate.util.MethodUtils;
 import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
 import com.att.main.pojos.Budget;
@@ -104,7 +105,7 @@ public class DataController {
 		return "addBudgetTransactionObj";
 	}
 	
-	//ManyToMany-Unidirectional
+	//ManyToMany-Unidirectional with source entity as Account
 	@RequestMapping(value="/addUsersAndAccounts")
 	@ResponseBody
 	public String addUsersAndAccountsTxnObj() {
@@ -123,6 +124,34 @@ public class DataController {
 		bankDaoService.addAccountsAndUsers(accountsToBeSaved);
 		
 		return "addUsersAndAccountsTxnObj";
+	}
+	
+	//ManyToMany Bidirectional with source Entity as user
+	@RequestMapping(value="/addAccountsToUser")
+	@ResponseBody
+	public String addAccountsToUser() {
+		Account account1 = MethodUtils.getAccountFieldDataOne();
+		Account account2 = MethodUtils.getAccountFieldDataTwo();
+		
+		User user1 = MethodUtils.getUserDataOne();
+		User user2 = MethodUtils.getUserDataTwo();
+		
+		account1.getUsers().add(user1);
+		account1.getUsers().add(user2);
+		account2.getUsers().add(user2);
+		account2.getUsers().add(user1);
+		
+		user1.getAccounts().add(account1);
+		user1.getAccounts().add(account2);
+		user2.getAccounts().add(account2);
+		user2.getAccounts().add(account1);
+		
+		List<User> usersToBeSaved = new ArrayList<User>();
+		usersToBeSaved.add(user1);
+		usersToBeSaved.add(user2);
+		
+		bankDaoService.addAccounsToUsers(usersToBeSaved);
+		return "addAccountsToUser";
 	}
 	
 	@RequestMapping(value="/addCredentialForUser")
