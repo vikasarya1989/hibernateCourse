@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
+import com.att.main.pojos.Budget;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
@@ -83,6 +84,24 @@ public class DataController {
 		bankDaoService.addAccountTxObj(account);
 		return "addAccountTxObj";
 	}
+	
+	@RequestMapping(value="/addBudgetTransactionObj")
+	@ResponseBody
+	public String addBudgetTransactionObj() {
+		
+		Account account = getAccountFieldData();
+		Budget budget = new Budget();
+		budget.setGoalAmount(new BigDecimal("1000.00"));
+		budget.setName("Insurance Policy");
+		budget.setPeriod("12 Months");
+		
+		budget.getTransactions().add(getbeltPurchaseTx(account));
+		budget.getTransactions().add(getshoePurchaseTx(account));
+		
+		bankDaoService.addbudgetTransactionObj(budget);
+		return "addBudgetTransactionObj";
+	}
+	
 	
 	@RequestMapping(value="/addCredentialForUser")
 	@ResponseBody

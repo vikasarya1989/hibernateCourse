@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
+import com.att.main.pojos.Budget;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
@@ -29,4 +30,6 @@ public interface IBankDao {
 	public void addAccountAndTxsObj(Account account);//oneToManyUnidirectional
 	
 	public void addAccountTxObj(Account account);//oneToManyBidirectional
+	
+	public void addbudgetTransactionObj(Budget budget);//@joinTable
 }

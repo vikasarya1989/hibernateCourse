@@ -3,6 +3,7 @@ package com.att.main.pojos;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="TRANSACTION")
 public class Transaction {
@@ -20,7 +22,7 @@ public class Transaction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long transactionId;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="ACCOUNT_ID")
 	private Account account;
 	

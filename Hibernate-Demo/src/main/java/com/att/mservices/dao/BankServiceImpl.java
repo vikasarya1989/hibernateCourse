@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
+import com.att.main.pojos.Budget;
 import com.att.main.pojos.Credential;
 import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
@@ -75,6 +76,11 @@ public class BankServiceImpl implements IBankDao{
 	@Override
 	public void addAccountTxObj(Account account) {
 		entityManager.persist(account);
+	}
+
+	@Override
+	public void addbudgetTransactionObj(Budget budget) {
+		entityManager.persist(budget);
 	}
 
 }
