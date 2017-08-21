@@ -83,4 +83,11 @@ public class BankServiceImpl implements IBankDao{
 		entityManager.persist(budget);
 	}
 
+	@Override
+	public void addAccountsAndUsers(List<Account> accountsToBeSaved) {
+		for (Account account : accountsToBeSaved) {
+			entityManager.persist(account);
+		}
+	}
+
 }

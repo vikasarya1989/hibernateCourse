@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,11 @@ public class Account {
 	@Column(name="ACCOUNT_ID")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long accountId;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="USER_ACCOUNT", joinColumns=@JoinColumn(name="ACCOUNT_ID"), 
+				inverseJoinColumns=@JoinColumn(name="USER_ID"))
+	public List<User> users = new ArrayList<User>();
 	
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="account")
 	List<Transaction> transactions = new ArrayList<Transaction>();
@@ -134,6 +141,13 @@ public class Account {
 		this.createdDate = createdDate;
 	}
 	
+	public List<User> getUsers() {
+		return users;
+	}
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	@Column(name="CREATED_BY")
 	private String createdBy;
 	

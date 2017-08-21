@@ -1,6 +1,7 @@
 package com.att.controller;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class DataController {
 	@RequestMapping(value="/addAccountAndTxsObj")
 	@ResponseBody
 	public String addAccountAndTxsObj() {
-		Account account = getAccountFieldData();
+		Account account = getAccountFieldDataOne();
 		Transaction beltPurchase = getbeltPurchaseTx();
 		Transaction shoePurchase = getshoePurchaseTx();
 		account.getTransactions().add(beltPurchase);
@@ -78,18 +79,19 @@ public class DataController {
 	@RequestMapping(value="/addAccountTxObj")
 	@ResponseBody
 	public String addAccountTxObj() {
-		Account account = getAccountFieldData();
+		Account account = getAccountFieldDataOne();
 		account.getTransactions().add(getbeltPurchaseTx(account));
 		account.getTransactions().add(getshoePurchaseTx(account));
 		bankDaoService.addAccountTxObj(account);
 		return "addAccountTxObj";
 	}
 	
+	//JoinTable
 	@RequestMapping(value="/addBudgetTransactionObj")
 	@ResponseBody
 	public String addBudgetTransactionObj() {
 		
-		Account account = getAccountFieldData();
+		Account account = getAccountFieldDataOne();
 		Budget budget = new Budget();
 		budget.setGoalAmount(new BigDecimal("1000.00"));
 		budget.setName("Insurance Policy");
@@ -102,6 +104,26 @@ public class DataController {
 		return "addBudgetTransactionObj";
 	}
 	
+	//ManyToMany-Unidirectional
+	@RequestMapping(value="/addUsersAndAccounts")
+	@ResponseBody
+	public String addUsersAndAccountsTxnObj() {
+		Account account1 = getAccountFieldDataOne();
+		Account account2 = getAccountFieldDataTwo();
+		
+		User user1 = getUserDataOne();
+		User user2 = getUserDataTwo();
+		
+		account1.getUsers().add(user1);
+		account2.getUsers().add(user2);
+		
+		List<Account> accountsToBeSaved = new ArrayList<Account>();
+		accountsToBeSaved.add(account1);
+		accountsToBeSaved.add(account2);
+		bankDaoService.addAccountsAndUsers(accountsToBeSaved);
+		
+		return "addUsersAndAccountsTxnObj";
+	}
 	
 	@RequestMapping(value="/addCredentialForUser")
 	@ResponseBody
@@ -165,15 +187,44 @@ public class DataController {
 	
 	
 	public static void setUserData(User user) {
-		user.setuserId(3L);
-		user.setFirstName("Pratap");
-		user.setLastName("Guttikonda");
+		user.setuserId(5L);
+		user.setFirstName("SuperUserOne");
+		user.setLastName("SuperUserOne");
 		user.setBirthDate(new Date());
-		user.setEmailId("pratap.gpv@gmail.com");
-		user.setLastUpdatedBy("Pratap");
+		user.setEmailId("su.su@gmail.com");
+		user.setLastUpdatedBy("SU");
 		user.setLastUpdated(new Date());
-		user.setCreatedBy("vamsi");
+		user.setCreatedBy("SU");
 		user.setCreatedDate(new Date());
+	}
+	
+	
+	public User getUserDataOne() {
+		User user = new User();
+		user.setuserId(5L);
+		user.setFirstName("SuperUserOne");
+		user.setLastName("SuperUserOne");
+		user.setBirthDate(new Date());
+		user.setEmailId("su.su@gmail.com");
+		user.setLastUpdatedBy("SU");
+		user.setLastUpdated(new Date());
+		user.setCreatedBy("SU");
+		user.setCreatedDate(new Date());
+		return user;
+	}
+	
+	public User getUserDataTwo() {
+		User user = new User();
+		user.setuserId(6L);
+		user.setFirstName("SuperuserTwo");
+		user.setLastName("SuperuserTwo");
+		user.setBirthDate(new Date());
+		user.setEmailId("su2.su2@gmail.com");
+		user.setLastUpdatedBy("SU2");
+		user.setLastUpdated(new Date());
+		user.setCreatedBy("SU2");
+		user.setCreatedDate(new Date());
+		return user;
 	}
 	
 	public static void setAddressOne(UserAddress address1) {
@@ -192,7 +243,7 @@ public class DataController {
 		address2.setZipcode("13210");
 	}
 	
-	public Account getAccountFieldData() {
+	public Account getAccountFieldDataOne() {
 		Account account = new Account();
 		account.setInitialBalance(new BigDecimal("1000.00"));
 		account.setCurrentBalance(new BigDecimal("991.00"));
@@ -205,6 +256,21 @@ public class DataController {
 		account.setName("Savings Account");
 		return account;
 	}
+	
+	public Account getAccountFieldDataTwo() {
+		Account account = new Account();
+		account.setInitialBalance(new BigDecimal("1100.00"));
+		account.setCurrentBalance(new BigDecimal("891.00"));
+		account.setCreatedBy("Michael");
+		account.setCreatedDate(new Date());
+		account.setLastupdatedBy("Scofield");
+		account.setLasUpdatedDate(new Date());
+		account.setOpenDate(new Date());
+		account.setCloseDate(new Date());
+		account.setName("Savings Account");
+		return account;
+	}
+	
 	
 	public Transaction getbeltPurchaseTx() {
 		Transaction beltPurchase = new Transaction();

@@ -32,4 +32,6 @@ public interface IBankDao {
 	public void addAccountTxObj(Account account);//oneToManyBidirectional
 	
 	public void addbudgetTransactionObj(Budget budget);//@joinTable
+	
+	public void addAccountsAndUsers(List<Account> accountsToBeSaved);//ManyToMany From Account Entity
 }
