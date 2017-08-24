@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,11 +18,13 @@ import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
 import com.att.main.pojos.UserAddress;
 
-@Transactional
+
 @Repository
+@Transactional(value="mySqlTransactionManager")
 public class BankServiceImpl implements IBankDao{
 	
 	@PersistenceContext
+	@Qualifier(value="mySqlEntityManager")
 	private EntityManager entityManager;
 	
 	@SuppressWarnings("unchecked")

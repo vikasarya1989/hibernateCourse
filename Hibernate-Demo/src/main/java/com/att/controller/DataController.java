@@ -21,11 +21,13 @@ import com.att.main.pojos.Account;
 import com.att.main.pojos.Bank;
 import com.att.main.pojos.Budget;
 import com.att.main.pojos.Credential;
+import com.att.main.pojos.Person;
 import com.att.main.pojos.Sampleuser;
 import com.att.main.pojos.User;
 import com.att.main.pojos.UserAddress;
 import com.att.main.pojos.Transaction;
 import com.att.mservices.dao.IBankDao;
+import com.att.mservices.dao.OracleDaoService;
 
 @Controller
 public class DataController {
@@ -35,6 +37,19 @@ public class DataController {
 	@Autowired
 	public void setBankDaoService(IBankDao bankDaoService) {
 		this.bankDaoService = bankDaoService;
+	}
+	
+	private OracleDaoService oracleDaoService;
+	
+	@Autowired
+	public void setOracleDaoService(OracleDaoService oracleDaoService) {
+		this.oracleDaoService = oracleDaoService;
+	}
+	
+	@RequestMapping(value="/getAllPersonDetails")
+	@ResponseBody
+	public List<Person> getAllPersonDetails() {
+		return oracleDaoService.getAllPersonDetails();
 	}
 	
 	@RequestMapping(value="/getBankDetails")
